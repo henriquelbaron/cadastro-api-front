@@ -1,3 +1,18 @@
+Para rodar o projeto é necessario ter instalado na maquina docker e docker-compose
+
+Na raiz do projeto executar o comando `docker-compose up`
+
+# Interface
+http://localhost/
+
+# Swagger
+http://localhost:8080/swagger-ui/index.html
+
+[Código fonte da api](https://github.com/henriquelbaron/cadastro-api)
+
+[Imagem no DockerHub](https://hub.docker.com/r/henriquelbaron/cadastro-front-end)
+
+
 # AngularHttp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.8.
