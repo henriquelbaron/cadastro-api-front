@@ -1,0 +1,96 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Pessoas</li>
+    </ol>
+  </nav>
+  <div class="container">
+    <div class="card list-pessoa">
+      <h5 class="card-header">Lista de Pessoas</h5>
+      <div class="card-body">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Sexo</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Data Nascimento</th>
+                <th scope="col">Naturalidade</th>
+                <th scope="col">Nacionalidade</th>
+                <th scope="col">Criado Em</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pessoa of pessoas">
+                <td>{{pessoa.id}}</td>
+                <td>{{pessoa.nome}}</td>
+                <td>{{pessoa.cpf}}</td>
+                <td>{{pessoa.sexo  == 0 ? 'Masculino' : pessoa.sexo  == 1 ? 'Feminino': 'Outro'}} </td>
+                <td>{{pessoa.email}}</td>
+                <td>{{pessoa.dataNascimento | date:'dd/MM/yyyy'}}</td>
+                <td>{{pessoa.naturalidade}}</td>
+                <td>{{pessoa.nacionalidade}}</td>
+                <td>{{pessoa.dataCriacao | date:'dd/MM/yyyy'}}</td>
+                <td>
+                  <button type="button" class="btn btn-warning btn-sm" (click)="editarPessoa(pessoa)">Editar</button>
+                  <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deletarPessoa(pessoa)">Deletar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+      <div class="card add-pessoa">
+          <h5 class="card-header">Adicionar/Atualizar Pessoa</h5>
+          <div class="card-body">
+              <form id="add-form" name="pessoaForm" (ngSubmit)="f.form.valid && savePessoa(f)" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" [(ngModel)]="pessoa.nome" id="nome" name="nome" #nome="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && nome.invalid }" placeholder="Digite o Nome">
+                    <div *ngIf="f.submitted && nome.invalid" class="invalid-feedback">
+                      <div *ngIf="nome?.errors?.required">Nome é Obrigatório</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" [(ngModel)]="pessoa.cpf" id="cpf" name="cpf" #cpf="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && cpf.invalid }" placeholder="Digite a CPF">
+                    <div *ngIf="f.submitted && cpf.invalid" class="invalid-feedback">
+                        <div *ngIf="cpf?.errors?.required">CPF é Obrigatório</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="text" [(ngModel)]="pessoa.email" id="email" name="email" #email="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" placeholder="Digite o E-mail">
+                </div>
+                <div class="form-group">
+                  <label for="sexo">Sexo</label>
+                  <select class="form-control" name="sexo" id="sexo" #sexo [(ngModel)]="pessoa.sexo" >
+                    <option value="" selected disabled >Seleciona o Sexo</option>
+                    <option value="0">Masculino</option>
+                    <option value="1">Feminino</option>
+                    <option value="2">Outro</option>
+                  </select>
+              </div>
+                <div class="form-group">
+                  <label for="dataNascimento">Nascimento</label>
+                  <input type="date" [(ngModel)]="pessoa.dataNascimento" id="dataNascimento" name="dataNascimento" #dataNascimento="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && dataNascimento.invalid }" placeholder="Digite a Data de Nascimento">
+                  <div *ngIf="f.submitted && dataNascimento.invalid" class="invalid-feedback">
+                    <div *ngIf="dataNascimento?.errors?.required">Data de Nascimento é Obrigatória</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="nacionalidade">Nacionalidade</label>
+                  <input type="text" [(ngModel)]="pessoa.nacionalidade" id="nacionalidade" name="nacionalidade" #email="ngModel" class="form-control" placeholder="Digite a Nacionalidade">
+                </div>
+                <div class="form-group">
+                  <label for="naturalidade">Naturalidade</label>
+                  <input type="text" [(ngModel)]="pessoa.naturalidade" id="naturalidade" name="naturalidade" #email="ngModel" class="form-control" placeholder="Digite a Naturalidade">
+                </div>
+                <button type="submit" class="btn btn-primary btn-add-pessoa">Salvar</button>
+                <button type="reset" class="btn btn-secondary btn-add-pessoa" (click)="cleanForm(f)">Cancelar</button>
+              </form>
+          </div>
+      </div>  
+  </div>
